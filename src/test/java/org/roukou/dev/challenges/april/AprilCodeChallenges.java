@@ -60,8 +60,45 @@ public class AprilCodeChallenges {
     public void challenge_one_character_shorting() {
       String input = "aaaaabbccccdeeeeeeaaafff";
 
-      // TODO: Add your code here
-      List<String> result = null;
+		List<Character> listOfChars = new ArrayList<Character>();
+		for (int i = 0; i < input.length(); i++) {
+
+			// access each character
+			char a = input.charAt(i);
+			listOfChars.add(a);
+		}
+
+		String tempChars = new String();
+		List<String> finalList = new ArrayList<String>();
+
+		int i = 0;
+		tempChars = listOfChars.get(0).toString();
+		for (int j = i; j <= listOfChars.size() - 1;) {
+
+				tempChars = listOfChars.get(j).toString();
+			
+			
+			if (i < listOfChars.size() - 1 && listOfChars.get(i) == listOfChars.get(i + 1)) {
+				
+				while (i < listOfChars.size() - 1 && listOfChars.get(i) == listOfChars.get(i + 1)) {
+
+					tempChars = tempChars + listOfChars.get(i);
+						i++;
+						j=i;
+				}
+				j++;
+				
+			} else {
+				
+				j++;
+			}
+			i=j;
+			finalList.add(tempChars);
+			tempChars = null;
+			
+		}
+
+      List<String> result = finalList;
 
       assertEquals("[aaaaa, bb, cccc, d, eeeeee, aaa, fff]", result.toString());
     }
@@ -76,8 +113,8 @@ public class AprilCodeChallenges {
           Stream.of("alfa", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel")
               .parallel();
 
-      // TODO: Add your code here
-      List<String> result = null;
+		List<String> result = input.collect(Collectors.groupingBy(String::length)).entrySet().stream()
+				.max(Map.Entry.comparingByKey()).map(Map.Entry::getValue).orElse(null);
 
       assertEquals(Arrays.asList("charlie", "foxtrot"), result);
     }
